@@ -1,11 +1,16 @@
 import { FlatList } from "react-native";
 import ExpenseItem from "../ExpenseItem";
+import { Expense } from "../types";
 
-const renderExpenseItem = (itemData) => {
-  return <ExpenseItem {...itemData.item} />;
+interface PropsExpensesList {
+  expenses: Expense[];
+}
+
+const renderExpenseItem = ({ item }: { item: Expense }) => {
+  return <ExpenseItem {...item} />;
 };
 
-const ExpensesList = ({ expenses }) => {
+const ExpensesList = ({ expenses }: PropsExpensesList) => {
   return (
     <FlatList
       data={expenses}

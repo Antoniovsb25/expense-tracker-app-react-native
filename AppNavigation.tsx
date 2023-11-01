@@ -17,6 +17,7 @@ const ExpensesOverview = () => {
       screenOptions={({ navigation }) => ({
         headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         headerTintColor: "#FFF",
+        headerTitleAlign: "center",
         tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
         tabBarActiveTintColor: GlobalStyles.colors.accent500,
         headerRight: ({ tintColor }) => (
@@ -61,7 +62,8 @@ export default function AppNavigation() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
-          headerTintColor: '#FFF'
+          headerTintColor: "#FFF",
+          headerTitleAlign: "center",
         }}
       >
         <Stack.Screen
@@ -69,9 +71,13 @@ export default function AppNavigation() {
           component={ExpensesOverview}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="ManageExpenses" component={ManageExpenses} options={{
-          presentation: 'modal'
-        }} />
+        <Stack.Screen
+          name="ManageExpenses"
+          component={ManageExpenses}
+          options={{
+            presentation: "modal",
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
