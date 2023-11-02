@@ -15,7 +15,7 @@ const ExpensesList = ({ expenses }: PropsExpensesList) => {
     <FlatList
       data={expenses}
       renderItem={renderExpenseItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id as string}
     />
   );
 };

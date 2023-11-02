@@ -1,7 +1,7 @@
 import React, { createContext, useReducer, ReactNode } from "react";
 
 interface Expense {
-  id: string;
+  id?: string;
   description: string;
   amount: number;
   date: Date;

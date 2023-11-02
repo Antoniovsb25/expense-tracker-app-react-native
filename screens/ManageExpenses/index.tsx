@@ -1,9 +1,10 @@
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import IconButton from "../../components/IconButton";
 import { GlobalStyles } from "../../styles";
 import Button from "../../components/Button";
+import { ExpensesContext } from "../../store/expense-context";
 
 type RootStackParamList = {
   ManageExpenses: { expenseId?: string };
@@ -20,14 +21,31 @@ const ManageExpenses: React.FC<ManageExpensesProps> = ({
 }) => {
   const { expenseId } = route.params || {};
   const isEditing = !!expenseId;
+  const expensesCtx = useContext(ExpensesContext);
 
   const deleteExpenseHandler = () => {
+    if (expenseId) expensesCtx.deleteExpense(expenseId);
     navigation.goBack();
   };
+
   const cancelHandler = () => {
     navigation.goBack();
   };
+
   const confirmHandler = () => {
+    if (isEditing)
+      expensesCtx.updateExpense(expenseId, {
+        id: expenseId,
+        description: "Test Update Expense",
+        amount: 25.99,
+        date: new Date("2023-11-01"),
+      });
+    if (!isEditing)
+      expensesCtx.addExpense({
+        description: "Test Adding Expense",
+        amount: 25.99,
+        date: new Date("2023-11-01"),
+      });
     navigation.goBack();
   };
 

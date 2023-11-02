@@ -5,7 +5,7 @@ import { GlobalStyles } from "../../../styles";
 import { getFormattedDate } from "../../../utils/date";
 
 interface PropsExpenseItem {
-  id: string;
+  id?: string;
   description?: string;
   amount?: number;
   date: Date;
@@ -20,7 +20,7 @@ type NavigationProp = StackNavigationProp<RootStackParamList, "ManageExpenses">;
 const ExpenseItem = ({ id, description, amount, date }: PropsExpenseItem) => {
   const navigation = useNavigation<NavigationProp>();
   const expensePressHandler = () => {
-    navigation.navigate("ManageExpenses", { expenseId: id });
+    if (id) navigation.navigate("ManageExpenses", { expenseId: id });
   };
   return (
     <TouchableOpacity onPress={expensePressHandler}>
