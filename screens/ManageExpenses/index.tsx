@@ -5,6 +5,7 @@ import IconButton from "../../components/IconButton";
 import { GlobalStyles } from "../../styles";
 import Button from "../../components/Button";
 import { ExpensesContext } from "../../store/expense-context";
+import ExpenseForm from "../../components/ExpenseForm";
 
 type RootStackParamList = {
   ManageExpenses: { expenseId?: string };
@@ -57,6 +58,7 @@ const ManageExpenses: React.FC<ManageExpensesProps> = ({
 
   return (
     <View style={styles.container}>
+      <ExpenseForm />
       <View style={styles.buttonContainer}>
         <Button style={styles.button} mode="flat" onPress={cancelHandler}>
           Cancel
