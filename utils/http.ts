@@ -1,10 +1,15 @@
 import axios from "axios";
+import { Expense } from "../components/ExpensesOutput/types";
 
 const BACKEND_URL =
   "https://react-native-expense-tra-aa4fa-default-rtdb.firebaseio.com";
 
-export async function storeExpense(expenseData) {
-  const response = await axios.post(BACKEND_URL + "/expenses.json", expenseData);
+export async function storeExpense(expenseData: Expense) {
+  console.log(expenseData);
+  const response = await axios.post(
+    BACKEND_URL + "/expenses.json",
+    expenseData
+  );
   const id = response.data.name;
   return id;
 }
@@ -25,10 +30,13 @@ export async function fetchExpenses() {
   return expenses;
 }
 
-export function updateExpense(id: string, expenseData) {
-    return axios.put(BACKEND_URL + `/expenses/${id}.json`, expenseData)
+export function updateExpense(
+  id: string,
+  expenseData: Expense
+) {
+  return axios.put(BACKEND_URL + `/expenses/${id}.json`, expenseData);
 }
 
 export async function deleteExpense(id: string) {
-    return axios.delete(BACKEND_URL + `/expenses/${id}.json`);
+  return axios.delete(BACKEND_URL + `/expenses/${id}.json`);
 }
