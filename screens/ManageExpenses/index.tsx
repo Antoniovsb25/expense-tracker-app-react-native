@@ -6,6 +6,7 @@ import { GlobalStyles } from "../../styles";
 import { ExpensesContext } from "../../store/expense-context";
 import ExpenseForm from "../../components/ExpenseForm";
 import { Expense } from "../../components/ExpensesOutput/types";
+import { storeExpense, updateExpense, deleteExpense } from "../../utils/http";
 
 type RootStackParamList = {
   ManageExpenses: { expenseId?: string };
@@ -28,8 +29,11 @@ const ManageExpenses: React.FC<ManageExpensesProps> = ({
     (expense) => expense.id === expenseId
   );
 
-  const deleteExpenseHandler = () => {
-    if (expenseId) expensesCtx.deleteExpense(expenseId);
+  const deleteExpenseHandler = async () => {
+    if (expenseId) {
+      expensesCtx.deleteExpense(expenseId);
+      await deleteExpense(expenseId);
+    }
     navigation.goBack();
   };
 
@@ -37,9 +41,16 @@ const ManageExpenses: React.FC<ManageExpensesProps> = ({
     navigation.goBack();
   };
 
-  const confirmHandler = (expenseData: Expense) => {
-    if (isEditing) expensesCtx.updateExpense(expenseId, expenseData);
-    if (!isEditing) expensesCtx.addExpense(expenseData);
+  const confirmHandler = async (expenseData: Expense) => {
+    if (isEditing) {
+      expensesCtx.updateExpense(expenseId, expenseData);
+      await updateExpense(expenseId, expenseData);
+    }
+
+    if (!isEditing) {
+      const id = await storeExpense(expenseData);
+      expensesCtx.addExpense({ ...expenseData, id: id });
+    }
     navigation.goBack();
   };
 
